@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+	</head>
+	<body>
+		<script>
+			function is_number_cool(number){
+				var digits = number.toString().split('');
+				var _sum = 0;
+				for(var i = 0; i < digits.length; i++){
+					_sum += Math.pow(parseInt(digits[i], 10), 2);
+				}
+				if(_sum == 1){
+					return true;
+				}
+				if(_sum == 4){
+					return false;
+				}
+				return _xxx(_sum);
+			}
+
+			var sum = 0;
+
+			for(var i = 1; i <= 1000000; i++){
+				if(is_number_cool(i)){
+					sum += i;
+				}
+			}
+
+			var word = '';
+	        for(var i = 1; i <= 100; i++){
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('POST', 'http://dev.getethos.com/code' + i, false);
+	            xhr.setRequestHeader('X-COOL-SUM', sum.toString());
+	            xhr.send();
+	            if(xhr.status == 200){
+	               word += xhr.responseText;
+	            }
+	        }
+	        console.log(word);
+		</script>
+  </body>
+</html>
