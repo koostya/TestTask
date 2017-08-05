@@ -4,40 +4,41 @@
 	</head>
 	<body>
 		<script>
+		//рекурсивная функция, которая проверяет является ли число "cool"
 			function is_number_cool(number){
-				var digits = number.toString().split('');
-				var _sum = 0;
-				for(var i = 0; i < digits.length; i++){
+				var digits = number.toString().split(''); // разбиваем число на цифры
+				var _sum = 0; // переменная, которая будет хранить сумму квадратов цифр числа
+				for(var i = 0; i < digits.length; i++){ // цикл, в котором собираем сумму квадратов цифр числа
 					_sum += Math.pow(parseInt(digits[i], 10), 2);
 				}
-				if(_sum == 1){
+				if(_sum == 1){ // если сумма оказалась равной 1, то возвращаем true
 					return true;
 				}
-				if(_sum == 4){
+				if(_sum == 4){ // в ином случае, если сумма оказалась равной 4, то возвращаем false
 					return false;
 				}
-				return _xxx(_sum);
+				return is_number_cool(_sum); // рекурсия, в которую передаем следующее число на проверку(точнее чтобы проверить сумму квадратов цифр числа)
 			}
 
-			var sum = 0;
+			var sum = 0; // переменная, которая будет хранить сумму всех "cool" чисел
 
-			for(var i = 1; i <= 1000000; i++){
+			for(var i = 1; i <= 1000000; i++){// в этом цикле поочередно проверяем все числа от 1 до 1000000 на то, являются ли они "cool"
 				if(is_number_cool(i)){
 					sum += i;
 				}
 			}
 
-			var word = '';
+			var word = ''; // переменная, в которую будем записывать слово по результатам запросов
 	        for(var i = 1; i <= 100; i++){
 	            var xhr = new XMLHttpRequest();
 	            xhr.open('POST', 'http://dev.getethos.com/code' + i, false);
 	            xhr.setRequestHeader('X-COOL-SUM', sum.toString());
 	            xhr.send();
-	            if(xhr.status == 200){
+	            if(xhr.status == 200){ // если статус запроса равен 200, то есть успешный, конкатинируем к переменной word ответ, который пришел 
 	               word += xhr.responseText;
 	            }
 	        }
-	        console.log(word);
+	        console.log(word); // распечатываем слово в консоль
 		</script>
   </body>
 </html>
